@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>CRUD Turnos</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/turno/update_turno.js"></script>
+    <script type="text/javascript" src="/js/turno/delete_turno.js"></script>
+    <script type="text/javascript" src="/js/turno/get_turno.js"></script>
+    <script type="text/javascript" src="/js/turno/post_turno.js"></script>
+  </head>
+  <body>
+    <div class="container text-center">
+      <div class="container m-5">
+        <a class="btn btn-outline-success" href="./altas/alta-turnos.html"
+          >Agregar nuevo</a
+        >
+
+        <a class="btn btn-outline-success" href="#">Todos</a>
+
+        <a class="btn btn-outline-success" href="./index.html"
+          >Volver al menu principal</a
+        >
+      </div>
+
+      <div id="div_turno_table">
+        <h2>Turnos</h2>
+        <div class="row col-md table-responsive">
+          <table id="turnoTable" class="table table-striped">
+            <thead>
+              <tr>
+                <th>Id</th>
+                <th>Fecha</th>
+                <th>Paciente</th>
+                <th>Odontologo</th>
+                <th>Eliminar</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="row">
+        <div
+          class="row"
+          style="
+          width: 100%;
+            display: none;
+            padding: 10px;
+            border-radius: 3px;
+          "
+          id="div_turno_updating"
+        >
+
+          <form id="update_turno_form" class="row justify-content-center">
+            
+            <div class="col-5 mx-2" style="background-color:#81bd7f3b; padding:10px; border-radius:3px" >
+              <h3>Modificar Odontologo</h3>
+              <div class="form-group">
+                <label for="odontologo_id">Id:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="odontologo_id"
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="nombreOdontologo">Nombre:</label>
+                <input type="text" class="form-control" id="nombreOdontologo"
+                placeholder="Ingrese el nombre" name="nombre" required></input>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="apellidoOdontologo">Apellido:</label>
+                <input type="text" class="form-control" id="apellidoOdontologo"
+                placeholder="Ingrese la apellido" name="apellido" required></input>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="matriculaOdontologo">Matricula:</label>
+                <input type="number" class="form-control" id="matriculaOdontologo"
+                placeholder="Ingrese direccion" name="matriculaOdontologo"></input>
+              </div>
+            </div>
+            <div class="col-5 mx-2" style="background-color:#81bd7f3b; padding:10px; border-radius:3px">
+              <h3>Modificar Paciente</h3>
+              <div class="form-group">
+                <label for="paciente_id">Id:</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="paciente_id"
+                  readonly
+                />
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="nombrePaciente">Nombre:</label>
+                <input type="text" class="form-control" id="nombrePaciente"
+                placeholder="Ingrese el nombre" name="nombrePaciente" required></input>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="apellidoPaciente">Apellido:</label>
+                <input type="text" class="form-control" id="apellidoPaciente"
+                placeholder="Ingrese la apellido" name="apellidoPaciente" required></input>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="dniPaciente">DNI:</label>
+                <input type="text" class="form-control" id="dniPaciente"
+                placeholder="Ingrese dni" name="dniPaciente"></input>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="callePaciente">Calle:</label>
+                <input type="text" class="form-control" id="callePaciente"
+                placeholder="Ingrese el nombre de la calle" name="callePaciente"></input>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="numeroPaciente">Numero:</label>
+                <input type="text" class="form-control" id="numeroPaciente"
+                placeholder="Ingrese numeracion" name="numeroPaciente"></input>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="ciudadPaciente">Ciudad:</label>
+                <input type="text" class="form-control" id="ciudadPaciente"
+                placeholder="Ingrese la ciudad" name="ciudadPaciente"></input>
+              </div>
+              <div class="form-group">
+                <label class="control-label" for="provinciaPaciente">Provincia:</label>
+                <input type="text" class="form-control" id="provinciaPaciente"
+                placeholder="Ingrese la provincia" name="provinciaPaciente"></input>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn-outline-success col-2 mt-2">Actualizar</button>
+          </form>
+        </div>
+      
+        <div id="response" class="w-100" style="display: none; margin: 10px"></div>
+      </div>
+    </div>
+  </body>
+</html>
