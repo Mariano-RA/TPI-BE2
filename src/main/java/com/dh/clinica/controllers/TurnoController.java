@@ -2,6 +2,7 @@ package com.dh.clinica.controllers;
 
 import com.dh.clinica.controllers.dtos.Mapper;
 import com.dh.clinica.controllers.dtos.TurnoDto;
+import com.dh.clinica.controllers.dtos.TurnoDtoRegis;
 import com.dh.clinica.models.Odontologo;
 import com.dh.clinica.models.Paciente;
 import com.dh.clinica.models.Turno;
@@ -32,19 +33,19 @@ public class TurnoController {
     private final Mapper mapper;
 
     @PostMapping(consumes = "application/json;charset=UTF-8")
-    public ResponseEntity<TurnoDto> registrar(@RequestBody TurnoDto turnoDto) {
+    public ResponseEntity<TurnoDto> registrar(@RequestBody TurnoDtoRegis turnoDto) {
 
         TurnoDto response;
-        Paciente resPaciente = pacienteService.buscarPorId(turnoDto.getPaciente().getId());
-        Odontologo resOdontologo= odontologoService.buscarPorId(turnoDto.getOdontologo().getId());
+        Paciente resPaciente = pacienteService.buscarPorId(turnoDto.getIdPaciente());
+        Odontologo resOdontologo= odontologoService.buscarPorId(turnoDto.getIdodontologo());
+        Turno turnoParaCargar = new Turno();
+        turnoParaCargar.setOdontologo(resOdontologo);
+        turnoParaCargar.setFechaTurno(turnoDto.getFechaTurno());
+        turnoParaCargar.setPaciente(resPaciente);
+        turnoParaCargar.setId(turnoDto.getId());
 
             if(resPaciente != null && resOdontologo != null){
-                turnoDto.setOdontologo(resOdontologo);
-                turnoDto.setPaciente(resPaciente);
-
-                Turno turno = mapper.toTurno(turnoDto) ;
-
-                response = mapper.toTurnoDto(turnoService.registrar(turno));
+                response = mapper.toTurnoDto(turnoService.registrar(turnoParaCargar));
 
                 return ResponseEntity.status(HttpStatus.CREATED).body(response);
             }

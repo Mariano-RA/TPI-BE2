@@ -3,24 +3,8 @@ $(document).ready(function () {
     evt.preventDefault();
 
     let formData = {
-      paciente: {
-        id: $("#idPaciente").val(),
-        nombre: $("#nombrePaciente").val(),
-        apellido: $("#apellidoPaciente").val(),
-        dni: $("#dniPaciente").val(),
-        domicilio: {
-          calle: $("#callePaciente").val(),
-          numero: $("#numeroPaciente").val(),
-          ciudad: $("#ciudadPaciente").val(),
-          provincia: $("#provinciaPaciente").val(),
-        },
-      },
-      odontologo: {
-        id: $("#idOdontologo").val(),
-        nombre: $("#nombreOdontologo").val(),
-        apellido: $("#apellidoOdontologo").val(),
-        matricula: $("#matriculaOdontologo").val(),
-      },
+      idPaciente: $("#idPaciente").val(),
+      idOdontologo: $("#idOdontologo").val(),
     };
 
     $.ajax({
@@ -56,6 +40,47 @@ $(document).ready(function () {
     });
   });
 
+  $("#buscarOdontologo").submit(function (evt) {
+    evt.preventDefault();
+      let idOdontologo = $("#idOdontologo").val();
+      $.ajax({
+            url: "/odontologos/" + idOdontologo,
+            type: "GET",
+            success: function (response) {
+              let odontologo = response;
+              $("#nombreOdontologo").val(odontologo.nombre);
+              $("#apellidoOdontologo").val(odontologo.apellido);
+              $("#matriculaOdontologo").val(odontologo.matricula);
+            },
+            error: function (error) {
+              console.log(error);
+              alert("Error -> " + error);
+            },
+          });
+      });
+
+  $(document).on("click", "#buscarPaciente", function () {
+        let idPaciente = $("#idPaciente").val();
+            $.ajax({
+              url: "/pacientes/" + idPaciente,
+              type: "GET",
+              success: function (response) {
+                let paciente = response;
+                $("#nombrePaciente").val(paciente.nombre);
+                $("#apellidoPaciente").val(paciente.apellido);
+                $("#dniPaciente").val(paciente.dni);
+                $("#callePaciente").val(paciente.domicilio.calle);
+                $("#numeroPaciente").val(paciente.domicilio.numero);
+                $("#ciudadPaciente").val(paciente.domicilio.ciudad);
+                $("#provinciaPaciente").val(paciente.domicilio.provincia);
+              },
+              error: function (error) {
+                console.log(error);
+                alert("Error -> " + error);
+              },
+            });
+        });
+
   function resetUploadForm() {
     $("#nombreOdontologo").val(null);
     $("#apellidoOdontologo").val(null);
@@ -77,4 +102,5 @@ $(document).ready(function () {
       $(".nav .nav-item a:last").addClass("active");
     }
   })();
+
 });

@@ -12,7 +12,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ClinicaOdontologicaApplication {
 
     public static void main(String[] args) {
-        ObjectMapper mapper = JsonMapper.builder() // or different mapper for other format
+        ObjectMapper mapper = JsonMapper.builder()
                 .addModule(new ParameterNamesModule())
                 .addModule(new Jdk8Module())
                 .addModule(new JavaTimeModule())
