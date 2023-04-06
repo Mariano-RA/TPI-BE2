@@ -17,7 +17,7 @@ public class Odontologo {
     private Long id;
     private String nombre;
     private String apellido;
-    private String matricula;
+    private Long matricula;
     @OneToMany(mappedBy = "odontologo", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Turno> turnos;

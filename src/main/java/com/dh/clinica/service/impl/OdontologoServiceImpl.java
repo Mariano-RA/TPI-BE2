@@ -16,8 +16,8 @@ public class OdontologoServiceImpl implements OdontologoService {
 
 
     @Override
-    public Odontologo registrar(Odontologo dentist) {
-        return odontologoRepository.save(dentist);
+    public Odontologo registrar(Odontologo odontologo) {
+        return odontologoRepository.save(odontologo);
     }
 
     @Override

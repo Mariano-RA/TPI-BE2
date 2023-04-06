@@ -3,8 +3,7 @@ package com.dh.clinica.controllers;
 import com.dh.clinica.controllers.dtos.Mapper;
 import com.dh.clinica.controllers.dtos.TurnoDto;
 import com.dh.clinica.controllers.dtos.TurnoDtoRegis;
-import com.dh.clinica.models.Odontologo;
-import com.dh.clinica.models.Paciente;
+import com.dh.clinica.exception.BadRequestException;
 import com.dh.clinica.models.Turno;
 import com.dh.clinica.service.OdontologoService;
 import com.dh.clinica.service.PacienteService;
@@ -14,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.webjars.NotFoundException;
 
 import java.util.List;
 
@@ -36,35 +36,38 @@ public class TurnoController {
     public ResponseEntity<TurnoDto> registrar(@RequestBody TurnoDtoRegis turnoDto) {
 
         TurnoDto response;
-        Paciente resPaciente = pacienteService.buscarPorId(turnoDto.getIdPaciente());
-        Odontologo resOdontologo= odontologoService.buscarPorId(turnoDto.getIdOdontologo());
-        Turno turnoParaCargar = new Turno();
-        turnoParaCargar.setOdontologo(resOdontologo);
-        turnoParaCargar.setFechaTurno(turnoDto.getFechaTurno());
-        turnoParaCargar.setPaciente(resPaciente);
-        turnoParaCargar.setId(turnoDto.getId());
 
-            if(resPaciente != null && resOdontologo != null){
-                response = mapper.toTurnoDto(turnoService.registrar(turnoParaCargar));
+        try{
+            Turno turnoParaCargar = new Turno();
+            turnoParaCargar.setOdontologo(odontologoService.buscarPorId(turnoDto.getIdOdontologo()));
+            turnoParaCargar.setFechaTurno(turnoDto.getFechaTurno());
+            turnoParaCargar.setPaciente(pacienteService.buscarPorId(turnoDto.getIdPaciente()));
+            turnoParaCargar.setId(turnoDto.getId());
+            response = mapper.toTurnoDto(turnoService.registrar(turnoParaCargar));
 
-                return ResponseEntity.status(HttpStatus.CREATED).body(response);
-            }
-            else{
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-            }
-
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
+        }
+        catch(BadRequestException e){
+            throw new BadRequestException("Alguno de los datos es incorrecto. "+ e);
+        }
+        catch(NotFoundException e){
+            throw new NotFoundException("El Odontologo o el Paciente no existen.");
+        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TurnoDto> buscarPorId(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<TurnoDto> buscarPorId(@PathVariable Long id) {
 
         try{
             Turno resVal = turnoService.buscarPorId(id);
             TurnoDto response = mapper.toTurnoDto(resVal);
             return ResponseEntity.ok(response);
         }
-        catch(Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        catch(BadRequestException e){
+            throw new BadRequestException("El ID debe ser un numero");
+        }
+        catch(NotFoundException e){
+            throw new NotFoundException("El Turno no existe");
         }
 
     }
@@ -75,35 +78,35 @@ public class TurnoController {
     }
 
     @PutMapping()
-    public ResponseEntity<TurnoDto> actualizar(@RequestBody TurnoDto turnoDto) {
-
-        Turno turno = mapper.toTurno(turnoDto);
-
+    public ResponseEntity<TurnoDto> actualizar(@RequestBody TurnoDtoRegis turnoDto) {
         try{
-
-            return ResponseEntity.ok(mapper.toTurnoDto(turnoService.actualizar(turno)));
+            Turno turnoParaActualizar = turnoService.buscarPorId(turnoDto.getId());
+            turnoParaActualizar.setOdontologo(odontologoService.buscarPorId(turnoDto.getIdOdontologo()));
+            turnoParaActualizar.setPaciente(pacienteService.buscarPorId(turnoDto.getIdPaciente()));
+            Turno response = turnoService.actualizar(turnoParaActualizar);
+            return ResponseEntity.ok(mapper.toTurnoDto(response));
 
         }
-        catch(Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        catch(BadRequestException e){
+            throw new BadRequestException("Alguno de los datos es incorrecto. "+ e);
         }
-
+        catch(NotFoundException e){
+            throw new NotFoundException("El Odontologo o el Paciente no existen.");
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminar(@PathVariable Long id) {
-
         try{
         turnoService.eliminar(id);
-
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("El turno fue eliminado");
 
         }
-        catch(Exception e){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        catch(BadRequestException e){
+            throw new BadRequestException("El ID debe ser un numero");
         }
-
-
+        catch(NotFoundException e){
+            throw new NotFoundException("El Turno no existe");
+        }
     }
-
 }

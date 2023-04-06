@@ -13,7 +13,7 @@ public class OdontologoDto {
     private Long id;
     private String nombre;
     private String apellido;
-    private Integer matricula;
+    private Long matricula;
     @JsonIgnore
     private Set<Turno> turnos;
 }
