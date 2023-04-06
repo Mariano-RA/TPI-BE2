@@ -27,14 +27,10 @@ public class OdontologoController {
 
         try{
         Odontologo odontologo = mapper.toOdontologo(odontologoDto);
-
         OdontologoDto response = mapper.toOdontologoDto(odontologoService.registrar(odontologo));
-
-
         return ResponseEntity.ok(response);
-
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }catch(Throwable e){
+            throw new BadRequestException("Revisa el formato de los datos" + e);
         }
 
     }
@@ -46,7 +42,7 @@ public class OdontologoController {
             return ResponseEntity.ok(response);
         }
         catch(Throwable e){
-            throw new BadRequestException("El id debe ser un numero");
+            throw new BadRequestException("El ID debe ser un numero");
         }
     }
 

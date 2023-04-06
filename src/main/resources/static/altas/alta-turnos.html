@@ -33,18 +33,25 @@
               border-radius: 3px;
             "
           >
-            <h3>Agregar Odontologo</h3>
-            <button class="btn btn-outline-success" type="submit" id="buscarOdontologo">Buscar Odontologo</button>
-            <div class="form-group">
-              <label class="control-label" for="idOdontologo">ID:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="idOdontologo"
-                placeholder="Ingrese el ID"
-                name="idOdontologo"
-                required
-              />
+            <h3 class="mb-3">Agregar Odontologo</h3>
+
+            <div class="row justify-content-between mx-1 mb-3">
+              <div class="col-7 align-self-end">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="idOdontologo"
+                  placeholder="Ingrese el ID"
+                  name="idOdontologo"
+                  required
+                />
+              </div>
+              <button
+                class="btn btn-outline-success col-5"
+                id="buscarOdontologo"
+              >
+                Buscar Odontologo
+              </button>
             </div>
             <div class="form-group">
               <label class="control-label" for="nombreOdontologo"
@@ -89,17 +96,20 @@
               border-radius: 3px;
             "
           >
-            <h3>Agregar Paciente</h3>
-              <button class="btn btn-outline-success" id="buscarPaciente">Buscar Paciente</button>
-            <div class="form-group">
-              <label class="control-label" for="idPaciente">ID:</label>
-              <input
-                type="text"
-                class="form-control"
-                id="idPaciente"
-                placeholder="Ingrese el ID"
-                name="idPaciente"
-              />
+            <h3 class="mb-3">Agregar Paciente</h3>
+            <div class="row justify-content-between mx-1 mb-3">
+              <div class="col-7 align-self-end">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="idPaciente"
+                  placeholder="Ingrese el ID"
+                  name="idPaciente"
+                />
+              </div>
+              <button class="btn btn-outline-success col-5" id="buscarPaciente">
+                Buscar Paciente
+              </button>
             </div>
 
             <div class="form-group">

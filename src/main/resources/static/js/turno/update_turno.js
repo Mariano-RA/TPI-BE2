@@ -2,29 +2,10 @@ $(document).ready(function () {
   $("#update_turno_form").submit(function (evt) {
     evt.preventDefault();
     try {
-      let turnoID = $("#turno_id").val();
-
       let formData = {
-        id: $("#turno_id").val(),
-        paciente: {
-          id: $("#paciente_id").val(),
-          nombre: $("#nombrePaciente").val(),
-          apellido: $("#apellidoPaciente").val(),
-          dni: $("#dniPaciente").val(),
-          domicilio: {
-            id: $("#odontologo_id").val(),
-            calle: $("#callePaciente").val(),
-            numero: $("#numeroPaciente").val(),
-            ciudad: $("#ciudadPaciente").val(),
-            provincia: $("#provinciaPaciente").val(),
-          },
-        },
-        odontologo: {
-          nombre: $("#nombreOdontologo").val(),
-          apellido: $("#apellidoOdontologo").val(),
-          matricula: $("#matriculaOdontologo").val(),
-        },
-      };
+            idPaciente: $("#idPaciente").val(),
+            idOdontologo: $("#idOdontologo").val(),
+          };
 
       $.ajax({
         url: "/turnos",
@@ -74,6 +55,48 @@ $(document).ready(function () {
     }
   });
 
+  $(document).on("click", "#buscarOdontologo", function (evt) {
+          evt.preventDefault();
+        let idOdontologo = $("#idOdontologo").val();
+        $.ajax({
+              url: "/odontologos/" + idOdontologo,
+              type: "GET",
+              success: function (response) {
+                let odontologo = response;
+                $("#nombreOdontologo").val(odontologo.nombre);
+                $("#apellidoOdontologo").val(odontologo.apellido);
+                $("#matriculaOdontologo").val(odontologo.matricula);
+              },
+              error: function (error) {
+                console.log(error);
+                alert("Error -> " + error);
+              },
+            });
+        });
+
+    $(document).on("click", "#buscarPaciente", function (evt) {
+          evt.preventDefault();
+          let idPaciente = $("#idPaciente").val();
+              $.ajax({
+                url: "/pacientes/" + idPaciente,
+                type: "GET",
+                success: function (response) {
+                  let paciente = response;
+                  $("#nombrePaciente").val(paciente.nombre);
+                  $("#apellidoPaciente").val(paciente.apellido);
+                  $("#dniPaciente").val(paciente.dni);
+                  $("#callePaciente").val(paciente.domicilio.calle);
+                  $("#numeroPaciente").val(paciente.domicilio.numero);
+                  $("#ciudadPaciente").val(paciente.domicilio.ciudad);
+                  $("#provinciaPaciente").val(paciente.domicilio.provincia);
+                },
+                error: function (error) {
+                  console.log(error);
+                  alert("Error -> " + error);
+                },
+              });
+          });
+
   $(document).on("click", "table button.btn_id", function () {
     let id_of_button = event.srcElement.id;
     let turnoId = id_of_button.split("_")[2];
@@ -83,18 +106,18 @@ $(document).ready(function () {
       type: "GET",
       success: function (response) {
         let turno = response;
-        $("#odontologo_id").val(turno.odontologo.id);
+        $("#idOdontologo").val(turno.odontologo.id);
         $("#nombreOdontologo").val(turno.odontologo.nombre);
         $("#apellidoOdontologo").val(turno.odontologo.apellido);
         $("#matriculaOdontologo").val(turno.odontologo.matricula);
-        $("#paciente_id").val(turno.paciente.id);
+        $("#idPaciente").val(turno.paciente.id);
         $("#nombrePaciente").val(turno.paciente.nombre);
         $("#apellidoPaciente").val(turno.paciente.apellido);
         $("#dniPaciente").val(turno.paciente.dni);
-        $("#callePaciente").val(turno.paciente.calle);
-        $("#numeroPaciente").val(turno.paciente.numero);
-        $("#ciudadPaciente").val(turno.paciente.ciudad);
-        $("#provinciaPaciente").val(turno.paciente.provincia);
+        $("#callePaciente").val(turno.paciente.domicilio.calle);
+        $("#numeroPaciente").val(turno.paciente.domicilio.numero);
+        $("#ciudadPaciente").val(turno.paciente.domicilio.ciudad);
+        $("#provinciaPaciente").val(turno.paciente.domicilio.provincia);
         $("#div_turno_updating").css({ display: "block" });
       },
       error: function (error) {

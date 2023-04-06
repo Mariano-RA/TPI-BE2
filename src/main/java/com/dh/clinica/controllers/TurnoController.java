@@ -37,7 +37,7 @@ public class TurnoController {
 
         TurnoDto response;
         Paciente resPaciente = pacienteService.buscarPorId(turnoDto.getIdPaciente());
-        Odontologo resOdontologo= odontologoService.buscarPorId(turnoDto.getIdodontologo());
+        Odontologo resOdontologo= odontologoService.buscarPorId(turnoDto.getIdOdontologo());
         Turno turnoParaCargar = new Turno();
         turnoParaCargar.setOdontologo(resOdontologo);
         turnoParaCargar.setFechaTurno(turnoDto.getFechaTurno());

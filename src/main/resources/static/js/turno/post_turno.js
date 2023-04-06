@@ -17,7 +17,6 @@ $(document).ready(function () {
       cache: false,
       success: function (response) {
         let turno = response;
-        console.log(response);
         let successAlert =
           '<div class="alert alert-success alert-dismissible">' +
           '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
@@ -40,8 +39,8 @@ $(document).ready(function () {
     });
   });
 
-  $("#buscarOdontologo").submit(function (evt) {
-    evt.preventDefault();
+  $(document).on("click", "#buscarOdontologo", function (evt) {
+        evt.preventDefault();
       let idOdontologo = $("#idOdontologo").val();
       $.ajax({
             url: "/odontologos/" + idOdontologo,
@@ -59,7 +58,8 @@ $(document).ready(function () {
           });
       });
 
-  $(document).on("click", "#buscarPaciente", function () {
+  $(document).on("click", "#buscarPaciente", function (evt) {
+        evt.preventDefault();
         let idPaciente = $("#idPaciente").val();
             $.ajax({
               url: "/pacientes/" + idPaciente,

@@ -11,5 +11,5 @@ public class TurnoDtoRegis{
     private Long id;
     private LocalDate fechaTurno;
     private Long idPaciente;
-    private Long idodontologo;
+    private Long idOdontologo;
 }
