@@ -1,6 +1,7 @@
 package com.dh.clinica.controllers;
 
 import com.dh.clinica.dtos.AuthRequestDto;
+import com.dh.clinica.dtos.AuthRequestDtoRegis;
 import com.dh.clinica.jwt.JwtUtils;
 import com.dh.clinica.models.Usuario;
 import com.dh.clinica.service.impl.UserDetailsServiceImpl;
@@ -51,16 +52,22 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody AuthRequestDto request) {
+    public ResponseEntity<?> register(@RequestBody AuthRequestDtoRegis request) {
         try {
             if (userDetailsServiceImpl.loadUserByUsername(request.getUsername()) != null) throw new RuntimeException("El usuario ya existe.");
         } catch (UsernameNotFoundException err) {
             // EMPTY
         }
+        Integer rol = Integer.parseInt(request.getRol());
         Usuario usuario = new Usuario();
         usuario.setUsername(request.getUsername());
         usuario.setPassword(passwordEncoder.encode(request.getPassword()));
-        usuario.setAuthorities(new SimpleGrantedAuthority("ROLE_USER"));
+        if(rol == 1){
+            usuario.setAuthorities(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        else if(rol == 2){
+            usuario.setAuthorities(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        }
         return ResponseEntity.ok()
                 .header(HttpHeaders.AUTHORIZATION, JwtUtils.generateJWT(userDetailsServiceImpl.save(usuario)))
                 .build();

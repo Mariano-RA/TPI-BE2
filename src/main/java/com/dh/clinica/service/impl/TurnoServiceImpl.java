@@ -31,7 +31,7 @@ public class TurnoServiceImpl implements TurnoService {
     private final Mapper mapper;
 
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Override
     public Turno registrar(TurnoDtoRegis turno) {
         try {
@@ -130,7 +130,7 @@ public class TurnoServiceImpl implements TurnoService {
         }
     }
 
-    @PreAuthorize("hasAuthority('ROLE_USER')")
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @Override
     public void eliminar(String id) {
 

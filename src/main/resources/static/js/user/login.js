@@ -15,7 +15,6 @@ $(document).ready(function () {
       async: false,
       cache: false,
       success: function (response) {
-        console.log(response.ok);
         localStorage.setItem("UserLogged", response);
         let successAlert =
           '<div class="alert alert-success alert-dismissible">' +
@@ -53,9 +52,12 @@ $(document).ready(function () {
   $(document).on("click", "#guardarDatos", function (evt) {
     evt.preventDefault();
 
+    let valorSeleccionado = document.getElementById("rolUser");
+
     let formData = {
       username: $("#userRegister").val(),
       password: $("#passRegister").val(),
+      rol: valorSeleccionado.value,
     };
 
     $.ajax({
