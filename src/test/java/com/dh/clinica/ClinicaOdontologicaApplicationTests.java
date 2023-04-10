@@ -1,4 +1,4 @@
-package com.example.clinica.clinicaOdontologica;
+package com.dh.clinica;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,5 +9,7 @@ class ClinicaOdontologicaApplicationTests {
 	@Test
 	void contextLoads() {
 	}
+
+
 
 }

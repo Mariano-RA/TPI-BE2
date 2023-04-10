@@ -27,7 +27,7 @@ $(document).ready(function () {
         let successAlert =
           '<div class="alert alert-success alert-dismissible">' +
           '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-          "<strong></strong> Se actualizaron los datos del paciente </div>";
+          "<strong></strong> Se registro el paciente </div>";
         $("#response").append(successAlert);
         $("#response").css({ display: "block" });
 

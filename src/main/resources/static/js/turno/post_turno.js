@@ -10,6 +10,7 @@ $(document).ready(function () {
     $.ajax({
       url: "/turnos",
       type: "POST",
+      headers: { Authorization: localStorage.getItem("UserLogged")},
       contentType: "application/json",
       data: JSON.stringify(formData),
       dataType: "json",
@@ -82,9 +83,11 @@ $(document).ready(function () {
         });
 
   function resetUploadForm() {
+    $("#idOdontologo").val(null);
     $("#nombreOdontologo").val(null);
     $("#apellidoOdontologo").val(null);
     $("#matriculaOdontologo").val(null);
+    $("#idPaciente").val(null);
     $("#nombrePaciente").val(null);
     $("#apellidoPaciente").val(null);
     $("#dniPaciente").val(null);

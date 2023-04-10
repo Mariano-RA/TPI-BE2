@@ -34,7 +34,6 @@ public class PacienteController {
     public ResponseEntity<PacienteDto> buscarPorId(@PathVariable String id) {
         PacienteDto response = mapper.toPacienteDto(pacienteService.buscarPorId(id));
         return ResponseEntity.ok(response);
-
     }
 
 
@@ -46,7 +45,6 @@ public class PacienteController {
 
     @PutMapping()
     public ResponseEntity<PacienteDto> actualizar(@RequestBody PacienteDto pacienteDto) {
-
         Paciente paciente = mapper.toPaciente(pacienteDto);
         return ResponseEntity.ok(mapper.toPacienteDto(pacienteService.actualizar(paciente)));
 
@@ -54,7 +52,6 @@ public class PacienteController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable String id) {
-
         pacienteService.eliminar(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body("El paciente fue eliminado");
 

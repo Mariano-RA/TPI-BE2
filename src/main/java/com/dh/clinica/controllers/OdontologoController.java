@@ -7,7 +7,6 @@ import com.dh.clinica.service.OdontologoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +20,8 @@ public class OdontologoController {
     private final OdontologoService odontologoService;
     private final Mapper mapper;
 
-
     @PostMapping()
-    public ResponseEntity<OdontologoDto> registrar(@RequestBody OdontologoDto odontologoDto)  {
+    public ResponseEntity<OdontologoDto> registrar(@RequestBody OdontologoDto odontologoDto) {
         Odontologo odontologo = mapper.toOdontologo(odontologoDto);
         return ResponseEntity.ok(mapper.toOdontologoDto(odontologoService.registrar(odontologo)));
     }
@@ -35,20 +33,19 @@ public class OdontologoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<OdontologoDto>> buscarTodos(){
-
+    public ResponseEntity<List<OdontologoDto>> buscarTodos() {
         return ResponseEntity.ok(odontologoService.buscarTodos().stream().map(odontologo -> mapper.toOdontologoDto(odontologo)).toList());
     }
 
     @PutMapping()
     public ResponseEntity<OdontologoDto> actualizar(@RequestBody OdontologoDto odontologoDto) {
-            Odontologo odontologo = mapper.toOdontologo(odontologoDto);
-            return ResponseEntity.ok(mapper.toOdontologoDto(odontologoService.actualizar(odontologo)));
+        Odontologo odontologo = mapper.toOdontologo(odontologoDto);
+        return ResponseEntity.ok(mapper.toOdontologoDto(odontologoService.actualizar(odontologo)));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable String id) {
-            odontologoService.eliminar(id);
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Se elimino al odontologo.");
+        odontologoService.eliminar(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Se elimino al odontologo.");
     }
 }

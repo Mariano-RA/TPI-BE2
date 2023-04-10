@@ -7,6 +7,7 @@ $(document).ready(function () {
     $.ajax({
       url: "/turnos/" + turnoId,
       type: "DELETE",
+      headers: { Authorization: localStorage.getItem("UserLogged")},
       success: function () {
         document.getElementById(`${numeroFila}`).remove();
       },

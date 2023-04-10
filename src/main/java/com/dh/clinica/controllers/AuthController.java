@@ -30,7 +30,7 @@ public class AuthController {
 
     /*
     @PreAuthorize("hasRole('USER)")
-    @PreAuthorize("hasRole('ADMIN)")
+    @PreAuthorize("hasAuthority('ROLE_USER)")
      */
 
     @Autowired
@@ -42,9 +42,8 @@ public class AuthController {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
             User user = (User) authentication.getPrincipal();
-            return ResponseEntity.ok(JwtUtils.generateJWT(user).toString());
-            /* return ResponseEntity.ok()
-                    .header(HttpHeaders.AUTHORIZATION, JwtUtils.generateJWT(user))
+            return ResponseEntity.ok(JwtUtils.generateJWT(user));
+            /* return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, JwtUtils.generateJWT(user))
                     .build(); */
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();

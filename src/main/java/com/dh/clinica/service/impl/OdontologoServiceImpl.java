@@ -23,7 +23,7 @@ public class OdontologoServiceImpl implements OdontologoService {
 
     private final OdontologoRepository odontologoRepository;
     @Override
-    public Odontologo registrar(Odontologo odontologo) throws BadRequestException{
+    public Odontologo registrar(Odontologo odontologo){
 
         try {
             Long.parseLong(odontologo.getMatricula());

@@ -42,8 +42,9 @@ $(document).ready(function () {
           $("#response").css({ display: "block" });
 
           setTimeout(() => {
-            $("#div_odontologo_updating").css({ display: "none" });
-          }, 2000);
+                      $("#response").css({ display: "none" });
+                      $("#div_odontologo_updating").css({ display: "none" });
+                    }, 2000);
         },
 
         error: function (response) {

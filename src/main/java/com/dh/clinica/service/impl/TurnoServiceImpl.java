@@ -13,6 +13,7 @@ import com.dh.clinica.repository.impl.TurnoRepository;
 import com.dh.clinica.service.TurnoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,6 +31,7 @@ public class TurnoServiceImpl implements TurnoService {
     private final Mapper mapper;
 
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @Override
     public Turno registrar(TurnoDtoRegis turno) {
         try {
@@ -128,6 +130,7 @@ public class TurnoServiceImpl implements TurnoService {
         }
     }
 
+    @PreAuthorize("hasAuthority('ROLE_USER')")
     @Override
     public void eliminar(String id) {
 

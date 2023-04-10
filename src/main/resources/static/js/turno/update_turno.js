@@ -2,9 +2,10 @@ $(document).ready(function () {
   $("#update_turno_form").submit(function (evt) {
     evt.preventDefault();
     try {
+      let turnoID = $("#turno_id").val();
+
       let formData = {
         id: $("#turno_id").val(),
-        fechaTurno: $("#fechaTurno").val(),
         idPaciente: $("#idPaciente").val(),
         idOdontologo: $("#idOdontologo").val(),
       };
@@ -25,7 +26,13 @@ $(document).ready(function () {
             '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
             "<strong> Se actualizaron los datos del Turno</strong></div>";
 
-          $("#tr_" + turnoID + " td.td_fechaTurno").text(turno.fechaTurno);
+          $("#tr_" + turnoID + " td.td_fechaTurno").text(
+            new Date(
+              turno.fechaTurno[0],
+              turno.fechaTurno[1] - 1,
+              turno.fechaTurno[2]
+            ).toLocaleDateString()
+          );
           $("#tr_" + turnoID + " td.td_paciente").text(
             turno.paciente.apellido.toUpperCase() + ", " + turno.paciente.nombre
           );
@@ -40,6 +47,7 @@ $(document).ready(function () {
           $("#response").css({ display: "block" });
 
           setTimeout(() => {
+            $("#response").css({ display: "none" });
             $("#div_turno_updating").css({ display: "none" });
           }, 2000);
         },
@@ -112,6 +120,7 @@ $(document).ready(function () {
       type: "GET",
       success: function (response) {
         let turno = response;
+        $("#turno_id").val(turno.id);
         $("#fechaTurno").val(turno.fechaTurno);
         $("#idOdontologo").val(turno.odontologo.id);
         $("#nombreOdontologo").val(turno.odontologo.nombre);

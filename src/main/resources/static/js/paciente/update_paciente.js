@@ -44,12 +44,22 @@ $(document).ready(function () {
           $("#tr_" + pacienteId + " td.td_fechaIngreso").text(
             paciente.fechaIngreso
           );
+          $("#tr_" + pacienteId + " td.td_domicilio").text(
+                      paciente.domicilio.calle +
+                      " " +
+                      paciente.domicilio.numero +
+                      ", " +
+                      paciente.domicilio.ciudad +
+                      ", " +
+                      paciente.domicilio.provincia
+            );
 
           $("#response").empty();
           $("#response").append(successAlert);
           $("#response").css({ display: "block" });
 
           setTimeout(() => {
+            $("#response").css({ display: "none" });
             $("#div_paciente_updating").css({ display: "none" });
           }, 2000);
         },
