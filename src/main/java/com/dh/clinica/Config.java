@@ -1,6 +1,6 @@
 package com.dh.clinica;
 
-import com.dh.clinica.controllers.dtos.Mapper;
+import com.dh.clinica.dtos.Mapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;

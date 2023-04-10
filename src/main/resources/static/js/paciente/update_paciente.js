@@ -32,7 +32,7 @@ $(document).ready(function () {
           let successAlert =
             '<div class="alert alert-success alert-dismissible">' +
             '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-            "<strong> paciente actualizado </strong></div>";
+            "<strong> Se actualizaron los datos del Paciente </strong></div>";
 
           $("#tr_" + pacienteId + " td.td_nombre").text(
             paciente.nombre.toUpperCase()
@@ -48,13 +48,17 @@ $(document).ready(function () {
           $("#response").empty();
           $("#response").append(successAlert);
           $("#response").css({ display: "block" });
+
+          setTimeout(() => {
+            $("#div_paciente_updating").css({ display: "none" });
+          }, 2000);
         },
 
         error: function (response) {
           let errorAlert =
             '<div class="alert alert-danger alert-dismissible">' +
             '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-            "<strong> Error </strong></div>";
+            "<strong> Fallo la actualizacion </strong></div>";
 
           $("#response").empty();
           $("#response").append(errorAlert);
@@ -70,7 +74,6 @@ $(document).ready(function () {
   $(document).on("click", "table button.btn_id", function () {
     let id_of_button = event.srcElement.id;
     let pacienteId = id_of_button.split("_")[2];
-
     $.ajax({
       url: "/pacientes/" + pacienteId,
       type: "GET",

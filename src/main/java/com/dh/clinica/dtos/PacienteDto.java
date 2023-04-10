@@ -1,4 +1,4 @@
-package com.dh.clinica.controllers.dtos;
+package com.dh.clinica.dtos;
 
 import com.dh.clinica.models.Domicilio;
 import com.dh.clinica.models.Turno;

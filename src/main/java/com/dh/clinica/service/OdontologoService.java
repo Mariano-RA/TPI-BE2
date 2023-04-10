@@ -7,9 +7,9 @@ import java.util.List;
 public interface OdontologoService {
 
     Odontologo registrar(Odontologo odontologo);
-    Odontologo buscarPorId(Long id);
+    Odontologo buscarPorId(String id);
     List<Odontologo> buscarTodos();
     Odontologo actualizar(Odontologo odontologo);
-    void eliminar(Long id);
+    void eliminar(String id);
 
 }

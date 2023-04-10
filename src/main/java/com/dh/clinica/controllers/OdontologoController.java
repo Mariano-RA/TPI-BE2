@@ -1,17 +1,14 @@
 package com.dh.clinica.controllers;
 
-import com.dh.clinica.controllers.dtos.Mapper;
-import com.dh.clinica.controllers.dtos.OdontologoDto;
-import com.dh.clinica.exception.BadRequestException;
-import com.dh.clinica.exception.InternalServerException;
+import com.dh.clinica.dtos.Mapper;
+import com.dh.clinica.dtos.OdontologoDto;
 import com.dh.clinica.models.Odontologo;
 import com.dh.clinica.service.OdontologoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.HttpServerErrorException;
-import org.webjars.NotFoundException;
 
 import java.util.List;
 
@@ -26,29 +23,15 @@ public class OdontologoController {
 
 
     @PostMapping()
-    public ResponseEntity<OdontologoDto> registrar(@RequestBody OdontologoDto odontologoDto) {
-
-        try{
+    public ResponseEntity<OdontologoDto> registrar(@RequestBody OdontologoDto odontologoDto)  {
         Odontologo odontologo = mapper.toOdontologo(odontologoDto);
-        OdontologoDto response = mapper.toOdontologoDto(odontologoService.registrar(odontologo));
-        return ResponseEntity.ok(response);
-        }catch(HttpServerErrorException.InternalServerError e){
-            throw new InternalServerException("Alguno de los datos es incorrecto.");
-        }
+        return ResponseEntity.ok(mapper.toOdontologoDto(odontologoService.registrar(odontologo)));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<OdontologoDto> buscarPorId(@PathVariable(name = "id") Long id) {
-        try{
-            OdontologoDto response = mapper.toOdontologoDto(odontologoService.buscarPorId(id));
-            return ResponseEntity.ok(response);
-        }
-        catch(BadRequestException e){
-            throw new BadRequestException("El ID debe ser un numero");
-        }
-        catch(NotFoundException e){
-            throw new NotFoundException("El Odontologo no existe");
-        }
+    public ResponseEntity<OdontologoDto> buscarPorId(@PathVariable String id) {
+        OdontologoDto response = mapper.toOdontologoDto(odontologoService.buscarPorId(id));
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
@@ -59,31 +42,13 @@ public class OdontologoController {
 
     @PutMapping()
     public ResponseEntity<OdontologoDto> actualizar(@RequestBody OdontologoDto odontologoDto) {
-
-        try{
             Odontologo odontologo = mapper.toOdontologo(odontologoDto);
             return ResponseEntity.ok(mapper.toOdontologoDto(odontologoService.actualizar(odontologo)));
-        }
-        catch(BadRequestException e){
-            throw new BadRequestException("Alguno de los datos es incorrecto.");
-        }
-
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> eliminar(@PathVariable Long id) {
-        try{
+    public ResponseEntity<String> eliminar(@PathVariable String id) {
             odontologoService.eliminar(id);
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Se elimino al odontologo.");
-
-        }
-        catch(BadRequestException e){
-            throw new BadRequestException("El ID debe ser un numero");
-        }
-        catch(NotFoundException e){
-            throw new NotFoundException("El Odontologo no existe");
-        }
     }
-
-
 }

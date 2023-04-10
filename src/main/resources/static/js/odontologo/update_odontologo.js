@@ -40,6 +40,10 @@ $(document).ready(function () {
           $("#response").empty();
           $("#response").append(successAlert);
           $("#response").css({ display: "block" });
+
+          setTimeout(() => {
+            $("#div_odontologo_updating").css({ display: "none" });
+          }, 2000);
         },
 
         error: function (response) {

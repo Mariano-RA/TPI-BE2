@@ -1,4 +1,4 @@
-package com.dh.clinica.controllers.dtos;
+package com.dh.clinica.dtos;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +10,6 @@ import java.time.LocalDate;
 public class TurnoDtoRegis{
     private Long id;
     private LocalDate fechaTurno;
-    private Long idPaciente;
-    private Long idOdontologo;
+    private String idPaciente;
+    private String idOdontologo;
 }

@@ -3,9 +3,11 @@ $(document).ready(function () {
     evt.preventDefault();
     try {
       let formData = {
-            idPaciente: $("#idPaciente").val(),
-            idOdontologo: $("#idOdontologo").val(),
-          };
+        id: $("#turno_id").val(),
+        fechaTurno: $("#fechaTurno").val(),
+        idPaciente: $("#idPaciente").val(),
+        idOdontologo: $("#idOdontologo").val(),
+      };
 
       $.ajax({
         url: "/turnos",
@@ -36,6 +38,10 @@ $(document).ready(function () {
           $("#response").empty();
           $("#response").append(successAlert);
           $("#response").css({ display: "block" });
+
+          setTimeout(() => {
+            $("#div_turno_updating").css({ display: "none" });
+          }, 2000);
         },
 
         error: function (response) {
@@ -56,46 +62,46 @@ $(document).ready(function () {
   });
 
   $(document).on("click", "#buscarOdontologo", function (evt) {
-          evt.preventDefault();
-        let idOdontologo = $("#idOdontologo").val();
-        $.ajax({
-              url: "/odontologos/" + idOdontologo,
-              type: "GET",
-              success: function (response) {
-                let odontologo = response;
-                $("#nombreOdontologo").val(odontologo.nombre);
-                $("#apellidoOdontologo").val(odontologo.apellido);
-                $("#matriculaOdontologo").val(odontologo.matricula);
-              },
-              error: function (error) {
-                console.log(error);
-                alert("Error -> " + error);
-              },
-            });
-        });
+    evt.preventDefault();
+    let idOdontologo = $("#idOdontologo").val();
+    $.ajax({
+      url: "/odontologos/" + idOdontologo,
+      type: "GET",
+      success: function (response) {
+        let odontologo = response;
+        $("#nombreOdontologo").val(odontologo.nombre);
+        $("#apellidoOdontologo").val(odontologo.apellido);
+        $("#matriculaOdontologo").val(odontologo.matricula);
+      },
+      error: function (error) {
+        console.log(error);
+        alert("Error -> " + error);
+      },
+    });
+  });
 
-    $(document).on("click", "#buscarPaciente", function (evt) {
-          evt.preventDefault();
-          let idPaciente = $("#idPaciente").val();
-              $.ajax({
-                url: "/pacientes/" + idPaciente,
-                type: "GET",
-                success: function (response) {
-                  let paciente = response;
-                  $("#nombrePaciente").val(paciente.nombre);
-                  $("#apellidoPaciente").val(paciente.apellido);
-                  $("#dniPaciente").val(paciente.dni);
-                  $("#callePaciente").val(paciente.domicilio.calle);
-                  $("#numeroPaciente").val(paciente.domicilio.numero);
-                  $("#ciudadPaciente").val(paciente.domicilio.ciudad);
-                  $("#provinciaPaciente").val(paciente.domicilio.provincia);
-                },
-                error: function (error) {
-                  console.log(error);
-                  alert("Error -> " + error);
-                },
-              });
-          });
+  $(document).on("click", "#buscarPaciente", function (evt) {
+    evt.preventDefault();
+    let idPaciente = $("#idPaciente").val();
+    $.ajax({
+      url: "/pacientes/" + idPaciente,
+      type: "GET",
+      success: function (response) {
+        let paciente = response;
+        $("#nombrePaciente").val(paciente.nombre);
+        $("#apellidoPaciente").val(paciente.apellido);
+        $("#dniPaciente").val(paciente.dni);
+        $("#callePaciente").val(paciente.domicilio.calle);
+        $("#numeroPaciente").val(paciente.domicilio.numero);
+        $("#ciudadPaciente").val(paciente.domicilio.ciudad);
+        $("#provinciaPaciente").val(paciente.domicilio.provincia);
+      },
+      error: function (error) {
+        console.log(error);
+        alert("Error -> " + error);
+      },
+    });
+  });
 
   $(document).on("click", "table button.btn_id", function () {
     let id_of_button = event.srcElement.id;
@@ -106,6 +112,7 @@ $(document).ready(function () {
       type: "GET",
       success: function (response) {
         let turno = response;
+        $("#fechaTurno").val(turno.fechaTurno);
         $("#idOdontologo").val(turno.odontologo.id);
         $("#nombreOdontologo").val(turno.odontologo.nombre);
         $("#apellidoOdontologo").val(turno.odontologo.apellido);

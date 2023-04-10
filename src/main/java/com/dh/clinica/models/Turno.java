@@ -1,5 +1,5 @@
 package com.dh.clinica.models;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,10 +19,13 @@ public class Turno {
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "paciente_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
     private Paciente paciente;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "odontologo_id")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Odontologo odontologo;
 
 }

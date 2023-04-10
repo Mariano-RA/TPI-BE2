@@ -11,23 +11,43 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <script
-      type="text/javascript"
-      src="/js/odontologo/post_odontologo.js"
-    ></script>
-    <script type="text/javascript" src="/js/paciente/post_paciente.js"></script>
+    <script type="text/javascript" src="./js/user/login.js"></script>
   </head>
   <body>
     <div class="container text-center my-5">
-      <a class="btn btn-outline-success" href="./odontologos.html"
+      <a class="btn btn-outline-success" href="./pages/odontologos.html"
         >Administracion odontologos</a
       >
-      <a class="btn btn-outline-success" href="./pacientes.html"
+      <a class="btn btn-outline-success" href="./pages/pacientes.html"
         >Administracion pacientes</a
       >
-      <a class="btn btn-outline-success" href="./turnos.html"
+      <a class="btn btn-outline-success" href="./pages/turnos.html"
         >Administracion Tunos</a
       >
+    </div>
+
+    <div class="row justify-content-center">
+      <div
+        class="col-sm-5"
+        style="background-color: #81bd7f3b; padding: 10px; border-radius: 3px"
+        id="div_login_user"
+      >
+        <form id="login_user_form">
+          <div class="form-group">
+            <label for="username">Usuario:</label>
+            <input type="text" class="form-control" id="username" />
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña:</label>
+            <input type="password" class="form-control" id="password" />
+          </div>
+
+          <button type="submit" class="btn btn-outline-success">
+            Ingresar
+          </button>
+        </form>
+        <div id="response" style="display: none; margin: 10px"></div>
+      </div>
     </div>
   </body>
 </html>

@@ -1,6 +1,5 @@
 package com.dh.clinica.models;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
@@ -17,7 +16,7 @@ public class Odontologo {
     private Long id;
     private String nombre;
     private String apellido;
-    private Long matricula;
+    private String matricula;
     @OneToMany(mappedBy = "odontologo", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Turno> turnos;

@@ -22,6 +22,7 @@ public class Paciente {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "domicilio_id")
     private Domicilio domicilio;
+
     @OneToMany(mappedBy = "paciente", fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Turno> turnos;
